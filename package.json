@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "set \"NODE_ENV=production\" && node server.js",
+    "dev": "set \"NODE_ENV=development\" && nodemon",
+    "start": "set \"NODE_ENV=production\" && ts-node --transpile-only server.ts ",
     "build": "cd frontend && npm install && npm run build"
   },
   "dependencies": {
@@ -15,11 +16,13 @@
     "ejs": "~2.5.7",
     "express": "~4.15.5",
     "morgan": "~1.9.0",
-    "spotify-web-api-node": "^2.5.0"
+    "spotify-web-api-node": "^2.5.0",
+    "ts-node": "^10.7.0"
   },
   "devDependencies": {
+    "@types/node": "^17.0.21",
+    "nodemon": "^2.0.15",
     "@rushstack/eslint-patch": "^1.1.0",
-    "@types/node": "^16.11.45",
     "@vitejs/plugin-vue": "^3.0.1",
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",

@@ -4,7 +4,7 @@ import {defineComponent} from "vue";
 export default defineComponent({
   methods: {
     async doLogin() {
-      window.location.href = 'http://localhost:3000/api/login';
+      window.location.href = '/api/login';
     },
   },
 })
