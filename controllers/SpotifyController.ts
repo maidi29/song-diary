@@ -88,17 +88,27 @@ module.exports.getDiaryData = async function (req, res) {
 
         const yesterdayBegin = new Date();
         const yesterdayEnd = new Date();
-        yesterdayBegin.setDate(yesterdayBegin.getDate() - 2);
+        yesterdayBegin.setDate(yesterdayBegin.getDate() - 1);
         yesterdayEnd.setHours(0,0,0,0);
         yesterdayBegin.setHours(0,0,0,0);
+        let date = yesterdayBegin;
 
         const recentlyPlayedItems: RecentlyPlayedItem[] = (await spotifyApi.getMyRecentlyPlayedTracks({
             limit: 50,
             after: yesterdayBegin.getTime(),
         })).body.items;
-        const yesterdayItems = recentlyPlayedItems.filter((item) => new Date(item.played_at).getTime() < yesterdayEnd.getTime());
-        const songIds = yesterdayItems.map(({track})=>track.id);
-        const count = yesterdayItems.length;
+
+        if (recentlyPlayedItems.length === 0) {
+            res.status(204);
+            res.end();
+        }
+        let dayItems = recentlyPlayedItems.filter((item) => new Date(item.played_at).getTime() < yesterdayEnd.getTime());
+        if (dayItems.length === 0) {
+            dayItems = recentlyPlayedItems;
+            date = yesterdayEnd;
+        }
+        const songIds = dayItems.map(({track})=>track.id);
+        const count = dayItems.length;
         const audioFeatures: AudioFeatures[] = (await spotifyApi.getAudioFeaturesForTracks(songIds)).body.audio_features;
 
         const data = audioFeatures.map(({type, id, uri, analysis_url, track_href, ...keep}) => keep);
@@ -119,7 +129,8 @@ module.exports.getDiaryData = async function (req, res) {
             },
             mean,
             standardDeviation,
-            count
+            count,
+            date
         });
 
     } catch (err) {

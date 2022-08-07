@@ -1,38 +1,14 @@
 <script lang="ts">
-
 import {defineComponent} from "vue";
+import type {DiaryData} from "@/model/diaryData";
+import Diary from "@/components/Diary.vue";
 
 declare interface BaseComponentData {
   diaryData?: DiaryData;
+  errorMessage?: string;
 }
-
-declare interface TrackFeatures {
-  danceability: number,
-  energy: number,
-  key: number,
-  loudness: number,
-  mode: number,
-  speechiness: number,
-  acousticness: number,
-  instrumentalness: number,
-  liveness: number,
-  valence: number,
-  tempo: number,
-  duration_ms: number,
-  time_signature: number
-}
-
-declare interface DiaryData {
-  me: {
-    name: string,
-    image: string
-  },
-  mean: TrackFeatures,
-  standardDeviation: TrackFeatures,
-  count: number
-}
-
 export default defineComponent({
+  components: {Diary},
   data(): BaseComponentData {
     return {
       diaryData: undefined
@@ -44,6 +20,8 @@ export default defineComponent({
        if (!response.ok) {
          const message = `An error has occured: ${response.status}`;
          throw new Error(message);
+       } else if (response.status === 204) {
+         this.errorMessage = "You didn't listen to music yesterday :("
        }
        this.diaryData = await response.json();
     })();
@@ -53,18 +31,28 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="diary">
-    <h1>Diary</h1>
-    <div>
-      Name: {{diaryData?.me.name}}
-      <img :src="diaryData?.me.image" width="300"/>
-      Count: {{diaryData?.count}}
-      {{JSON.stringify(diaryData?.mean)}}
-      {{JSON.stringify(diaryData?.standardDeviation)}}
-    </div>
+  <div class="diary-view">
+    <header>
+      <nav>
+        <RouterLink to="/" class="router-link">Back to Start screen</RouterLink>
+      </nav>
+    </header>
+    <Diary v-if="diaryData" :data="diaryData"/>
   </div>
 </template>
 
 <style scoped lang="scss">
-
+@use './src/assets/theme';
+.router-link {
+  color: theme.$color-secondary;
+}
+.diary-view {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
 </style>
+
