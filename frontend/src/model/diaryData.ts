@@ -22,5 +22,6 @@ export interface DiaryData {
     mean: TrackFeatures,
     standardDeviation: TrackFeatures,
     count: number,
-    date: string
+    date: string,
+    randomSongName: string
 }

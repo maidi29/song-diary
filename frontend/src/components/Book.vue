@@ -65,13 +65,18 @@ export default {
 // from https://codepen.io/sabanna/pen/ZxQXQv
 .scene {
   --scene-height: 70vw;
+  --max-scene-height: 2000px;
   --book-width: calc(var(--scene-height)/0.947);
+  --max-book-width: calc(var(--max-scene-height)/0.947);
   --corner-size: calc(var(--scene-height)/10.8);
+  --max-corner-size: calc(var(--max-scene-height)/10.8);
   --corner-fold-size: calc(var(--scene-height)/15.429);
+  --max-corner-fold-size: calc(var(--max-scene-height)/15.429);
 
   display: flex;
   width: 100%;
   height: var(--scene-height);
+  max-height: var(--max-scene-height);
   justify-content: center;
   align-items: stretch;
   perspective: 4000px;
@@ -88,8 +93,9 @@ export default {
   position: relative;
   display: flex;
   width: var(--book-width);
-  margin-top: 8vw;
-  margin-bottom: 8vw;
+  max-height: var(--max-book-width);
+  margin-top: 3rem;
+  margin-bottom: 3rem;
   padding-right: 1%;
   padding-left: 1%;
   justify-content: center;
@@ -103,9 +109,6 @@ export default {
   font-size: 1.5rem;
   &:hover {
     transform: translate3d(0px, 5%, -264px) rotateX(13deg) rotateY(0deg) rotateZ(-3deg);
-  }
-  @media (max-width: 767px) {
-    margin-bottom: 2vw;
   }
 }
 
@@ -227,7 +230,7 @@ export default {
       transform: rotateX(0deg) rotateY(-17deg) rotateZ(0deg);
     }
     @media (max-width: 991px) {
-      padding-left: 9%;
+      padding-left: 5%;
     }
     @media (max-width: 767px) {
       width: 92%;
@@ -262,6 +265,8 @@ export default {
   top: 0;
   width: var(--corner-fold-size);
   height: var(--corner-fold-size);
+  max-width: var(--max-corner-fold-size);
+  max-height: var(--max-corner-fold-size);
   border-right: 1px solid hsla(0, 13%, 82%, .55);
   border-bottom: 1px solid hsla(0, 13%, 82%, .55);
   background-image: -webkit-linear-gradient(315deg, transparent 47%, #f0f0f0 48%, #fff 55%, #f6f6f6);
@@ -275,6 +280,8 @@ export default {
   top: calc(var(--corner-size)/1.54);
   width: var(--corner-size);
   height: var(--corner-size);
+  max-width: var(--max-corner-size);
+  max-height: var(--max-corner-size);
   background-image: linear-gradient(135deg, #fff 30%, transparent);
   box-shadow: inset 13px 0 17px -12px hsla(0, 13%, 82%, .43);
 }
@@ -293,13 +300,11 @@ export default {
   position: relative;
   display: block;
   width: 80%;
-  margin-top: 25px;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 1.5rem auto;
   font-family: theme.$font-family-hand;
   word-wrap: break-word;
   @media (max-width: 767px) {
-    margin-top: 2vw;
+    margin-top: calc(var(--corner-size)/2);
   }
   a {
     color: theme.$color-secondary;

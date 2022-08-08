@@ -32,12 +32,13 @@ export default defineComponent({
 
 <template>
   <div class="diary-view">
+    <Diary v-if="diaryData" :data="diaryData"/>
+    <div v-else>An error has occurred, try to log in again on the start screen:</div>
     <header>
       <nav>
-        <RouterLink to="/" class="router-link">Back to Start screen</RouterLink>
+        <RouterLink to="/" class="router-link">Back to start screen</RouterLink>
       </nav>
     </header>
-    <Diary v-if="diaryData" :data="diaryData"/>
   </div>
 </template>
 
