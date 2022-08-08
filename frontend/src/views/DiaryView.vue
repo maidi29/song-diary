@@ -11,17 +11,19 @@ export default defineComponent({
   components: {Diary},
   data(): BaseComponentData {
     return {
-      diaryData: undefined
+      diaryData: undefined,
+      errorMessage: undefined
     }
   },
   mounted() {
      (async () => {
       const response = await fetch('/api/diarydata');
        if (!response.ok) {
-         const message = `An error has occured: ${response.status}`;
-         throw new Error(message);
+         this.errorMessage = "An error has occurred: try to log in again on the start screen:";
+         throw new Error(this.errorMessage);
        } else if (response.status === 204) {
-         this.errorMessage = "You didn't listen to music yesterday :("
+         this.errorMessage = "You didn't listen to music yesterday or today 😞 Listen to a few songs and then come back again.";
+         throw new Error(this.errorMessage);
        }
        this.diaryData = await response.json();
     })();
@@ -33,7 +35,7 @@ export default defineComponent({
 <template>
   <div class="diary-view">
     <Diary v-if="diaryData" :data="diaryData"/>
-    <div v-else>An error has occurred, try to log in again on the start screen:</div>
+    <div v-else-if="errorMessage">{{errorMessage}}</div>
     <header>
       <nav>
         <RouterLink to="/" class="router-link">Back to start screen</RouterLink>

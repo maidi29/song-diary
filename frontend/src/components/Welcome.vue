@@ -14,7 +14,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <h1>Music Diary</h1>
+  <h1>The Music Diary</h1>
   <h3>The Music Diary analyzes the Spotify tracks you listened to yesterday and generates a diary entry from them
     that reflects your mood and activities.</h3>
   <h3>See for yourself how much your listening habits reveal about your day.</h3>
