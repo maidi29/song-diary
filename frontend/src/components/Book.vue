@@ -64,7 +64,7 @@ export default {
 
 // from https://codepen.io/sabanna/pen/ZxQXQv
 .scene {
-  --scene-height: 70vw;
+  --scene-height: 50vw;
   --max-scene-height: 2000px;
   --book-width: calc(var(--scene-height)/0.947);
   --max-book-width: calc(var(--max-scene-height)/0.947);
@@ -226,11 +226,9 @@ export default {
     transform-origin: 0 50%;
     transition: transform 850ms ease;
     overflow-y: auto;
+    padding-left: 5%;
     &:hover {
       transform: rotateX(0deg) rotateY(-17deg) rotateZ(0deg);
-    }
-    @media (max-width: 991px) {
-      padding-left: 5%;
     }
     @media (max-width: 767px) {
       width: 92%;
