@@ -1,5 +1,5 @@
 const SpotifyWebApi = require('spotify-web-api-node');
-import { generateRandomString, getMean, getStandardDeviation } from './helper';
+import {generateRandomString, getMean, getRandomElement, getStandardDeviation} from './helper';
 
 interface AudioFeatures {
     danceability: number, // a value of 0.0 is least danceable and 1.0 is most danceable
@@ -120,7 +120,8 @@ module.exports.getDiaryData = async function (req, res) {
         }));
         const mean = Object.assign({}, ...means);
         const standardDeviation = Object.assign({}, ...standardDeviations);
-        console.log(me);
+
+        const randomSongName = getRandomElement<RecentlyPlayedItem>(dayItems).track.name;
 
         res.status(200).json({
             me: {
@@ -130,7 +131,8 @@ module.exports.getDiaryData = async function (req, res) {
             mean,
             standardDeviation,
             count,
-            date
+            date,
+            randomSongName
         });
 
     } catch (err) {
