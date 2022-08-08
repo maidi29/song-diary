@@ -7,7 +7,6 @@ router.get('/spotifycallback',  async function (req, res) {
 });
 
 router.get('/login', function(req, res) {
-    console.log('login');
     spotifyController.spotifyLogin(res);
 });
 
