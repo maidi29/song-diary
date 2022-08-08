@@ -40,8 +40,8 @@ export default defineComponent({
     <template v-slot:page-left>
       <div class="page-wrapper">
         <div class="date">{{new Date(data.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}}</div>
-        <div class="image-wrapper">
-          <img v-if="randomImage" :src="randomImage"/>
+        <div class="image-wrapper" v-if="randomImage">
+          <img :src="randomImage"/>
           <span class="paper-clip"></span>
         </div>
         <div/>
