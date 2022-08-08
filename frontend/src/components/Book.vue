@@ -64,25 +64,30 @@ export default {
 
 // from https://codepen.io/sabanna/pen/ZxQXQv
 .scene {
+  --scene-height: 70vw;
+  --book-width: calc(var(--scene-height)/0.947);
+  --corner-size: calc(var(--scene-height)/10.8);
+  --corner-fold-size: calc(var(--scene-height)/15.429);
+
   display: flex;
   width: 100%;
-  height: 54vw;
+  height: var(--scene-height);
   justify-content: center;
   align-items: stretch;
   perspective: 4000px;
   perspective-origin: 50% 0;
   @media (max-width: 991px) {
-    height: 56vw;
+    --scene-height: 80vw;
   }
   @media (max-width: 479px) {
-    height: 69vw;
+    --scene-height: 90vw;
   }
 }
 
 .book-wrap {
   position: relative;
   display: flex;
-  width: 57vw;
+  width: var(--book-width);
   margin-top: 8vw;
   margin-bottom: 8vw;
   padding-right: 1%;
@@ -96,16 +101,10 @@ export default {
   transform-style: preserve-3d;
   color: theme.$color-dark;
   font-size: 1.5rem;
-
   &:hover {
     transform: translate3d(0px, 5%, -264px) rotateX(13deg) rotateY(0deg) rotateZ(-3deg);
   }
-
-  @media (max-width: 991px) {
-    width: 62vw;
-  }
   @media (max-width: 767px) {
-    width: 80vw;
     margin-bottom: 2vw;
   }
 }
@@ -261,54 +260,31 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  width: 30px;
-  height: 30px;
+  width: var(--corner-fold-size);
+  height: var(--corner-fold-size);
   border-right: 1px solid hsla(0, 13%, 82%, .55);
   border-bottom: 1px solid hsla(0, 13%, 82%, .55);
   background-image: -webkit-linear-gradient(315deg, transparent 47%, #f0f0f0 48%, #fff 55%, #f6f6f6);
   background-image: linear-gradient(135deg, transparent 47%, #f0f0f0 48%, #fff 55%, #f6f6f6);
   box-shadow: 6px 6px 9px -4px hsla(0, 13%, 82%, .53);
-  @media (max-width: 991px) {
-    left: 0;
-    top: -1%;
-    width: 3.5vw;
-    height: 3.5vw;
-    max-height: 35px;
-    background-image: linear-gradient(135deg, transparent 50%, #f0f0f0 51%, #fff 52%, #f6f6f6);
-  }
-  @media (max-width: 767px) {
-    width: 4.5vw;
-    height: 4.5vw;
-    max-height: 29px;
-    min-width: 29px;
-    background-image: linear-gradient(140deg, transparent 48%, #f0f0f0 49%, #fff 50%, #f6f6f6);
-  }
-  @media (max-width: 479px) {
-    width: 5.5vw;
-    height: 5.5vw;
-    min-width: 21px;
-  }
 }
 
 .corner {
   position: absolute;
   left: 0;
-  top: 27px;
-  width: 5vw;
-  height: 5vw;
+  top: calc(var(--corner-size)/1.54);
+  width: var(--corner-size);
+  height: var(--corner-size);
   background-image: linear-gradient(135deg, #fff 30%, transparent);
   box-shadow: inset 13px 0 17px -12px hsla(0, 13%, 82%, .43);
-  @media (max-width: 991px) {
-    top: 8%;
-  }
 }
 
 .corner2 {
   position: absolute;
-  left: 28px;
+  left: calc(var(--corner-size)/1.54);
   top: 0;
-  width: 5vw;
-  height: 5vw;
+  width: var(--corner-size);
+  height: var(--corner-size);
   box-shadow: inset 0 13px 17px -12px hsla(0, 13%, 82%, .43);
   background: #ffffff;
 }
@@ -324,26 +300,6 @@ export default {
   word-wrap: break-word;
   @media (max-width: 767px) {
     margin-top: 2vw;
-  }
-  p {
-    margin-bottom: 0;
-    line-height: 1.5;
-  }
-  h3 {
-    @media (max-width: 991px) {
-      margin-top: 2vw;
-      margin-bottom: 1vw;
-    }
-    @media (max-width: 767px) {
-      margin-top: 0;
-    }
-  }
-  h6 {
-    text-decoration: none;
-    @media (max-width: 991px) {
-      margin-top: 1vw;
-      margin-bottom: 1vw;
-    }
   }
   a {
     color: theme.$color-secondary;
