@@ -2,17 +2,26 @@
 import { defineComponent } from "vue";
 import type { DiaryData } from "@/model/diaryData";
 import Diary from "@/components/Diary.vue";
+import Chart from "@/components/Chart.vue";
 
 declare interface BaseComponentData {
   diaryData?: DiaryData;
   errorMessage?: string;
+  chartData: {
+    mean: number[];
+    standardDeviation: number[]
+  }
 }
 export default defineComponent({
-  components: { Diary },
+  components: {Chart, Diary },
   data(): BaseComponentData {
     return {
       diaryData: undefined,
       errorMessage: undefined,
+      chartData: {
+        mean: [],
+        standardDeviation: []
+      }
     };
   },
   mounted() {
@@ -28,6 +37,16 @@ export default defineComponent({
         throw new Error(this.errorMessage);
       }
       this.diaryData = await response.json();
+      if (this.diaryData) {
+        var { key, mode, time_signature, ...chartDataMean } = this.diaryData.mean;
+        var { key, mode, time_signature, ...chartDataStandardDeviation } = this.diaryData.standardDeviation;
+        chartDataMean.loudness = chartDataMean.loudness * (-1);
+        this.chartData = {
+          mean: Object.values(chartDataMean),
+          standardDeviation: Object.values(chartDataStandardDeviation)
+        }
+      }
+
     })();
   },
 });
@@ -35,7 +54,13 @@ export default defineComponent({
 
 <template>
   <div class="diary-view">
-    <Diary v-if="diaryData" :data="diaryData" />
+    <template v-if="diaryData">
+      <Diary :data="diaryData" />
+      <details>
+        <summary>Data</summary>
+        <Chart :data="chartData" />
+      </details>
+    </template>
     <div v-else-if="errorMessage">{{ errorMessage }}</div>
     <header>
       <nav>
@@ -57,5 +82,18 @@ export default defineComponent({
   text-align: center;
   align-items: center;
   justify-content: center;
+}
+summary {
+  width: 100%;
+  background: darken(theme.$color-background,10);
+  color: theme.$color-primary;
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+details {
+  background: darken(theme.$color-background,15);
+  width: 100vw;
+  max-width: 800px;
 }
 </style>
