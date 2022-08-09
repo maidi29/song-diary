@@ -1,6 +1,6 @@
 <script lang="ts">
-import {defineComponent} from "vue";
-import type {DiaryData} from "@/model/diaryData";
+import { defineComponent } from "vue";
+import type { DiaryData } from "@/model/diaryData";
 import Diary from "@/components/Diary.vue";
 
 declare interface BaseComponentData {
@@ -8,34 +8,35 @@ declare interface BaseComponentData {
   errorMessage?: string;
 }
 export default defineComponent({
-  components: {Diary},
+  components: { Diary },
   data(): BaseComponentData {
     return {
       diaryData: undefined,
-      errorMessage: undefined
-    }
+      errorMessage: undefined,
+    };
   },
   mounted() {
-     (async () => {
-      const response = await fetch('/api/diarydata');
-       if (!response.ok) {
-         this.errorMessage = "An error has occurred - try to log in again on the start screen:";
-         throw new Error(this.errorMessage);
-       } else if (response.status === 204) {
-         this.errorMessage = "You didn't listen to music yesterday or today 😞 Listen to a few songs and then come back again.";
-         throw new Error(this.errorMessage);
-       }
-       this.diaryData = await response.json();
+    (async () => {
+      const response = await fetch("/api/diarydata");
+      if (!response.ok) {
+        this.errorMessage =
+          "An error has occurred - try to log in again on the start screen:";
+        throw new Error(this.errorMessage);
+      } else if (response.status === 204) {
+        this.errorMessage =
+          "You didn't listen to music yesterday or today 😞 Listen to a few songs and then come back again.";
+        throw new Error(this.errorMessage);
+      }
+      this.diaryData = await response.json();
     })();
-  }
-})
-
+  },
+});
 </script>
 
 <template>
   <div class="diary-view">
-    <Diary v-if="diaryData" :data="diaryData"/>
-    <div v-else-if="errorMessage">{{errorMessage}}</div>
+    <Diary v-if="diaryData" :data="diaryData" />
+    <div v-else-if="errorMessage">{{ errorMessage }}</div>
     <header>
       <nav>
         <RouterLink to="/" class="router-link">Back to start screen</RouterLink>
@@ -45,9 +46,9 @@ export default defineComponent({
 </template>
 
 <style scoped lang="scss">
-@use './src/assets/theme';
+@use "./src/assets/theme";
 .router-link {
-  color: theme.$color-secondary;
+  color: theme.$color-primary;
 }
 .diary-view {
   display: flex;
@@ -58,4 +59,3 @@ export default defineComponent({
   justify-content: center;
 }
 </style>
-

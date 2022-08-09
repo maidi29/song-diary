@@ -9,7 +9,7 @@ import TheWelcome from "@/components/Welcome.vue";
 </template>
 
 <style scoped lang="scss">
-@use './src/assets/theme';
+@use "./src/assets/theme";
 .home-view {
   display: flex;
   flex-direction: column;
@@ -17,5 +17,6 @@ import TheWelcome from "@/components/Welcome.vue";
   text-align: center;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 </style>

@@ -9,4 +9,8 @@ module.exports = {
     "@vue/eslint-config-typescript/recommended",
     "@vue/eslint-config-prettier",
   ],
+  rules: {
+    "vue/multi-word-component-names": "off",
+    "vue/no-reserved-component-names": "off",
+  },
 };

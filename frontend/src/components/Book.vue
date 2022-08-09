@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
-  name: "Book"
-}
+  name: "Book",
+};
 </script>
 
 <template>
@@ -60,18 +60,18 @@ export default {
 </template>
 
 <style scoped lang="scss">
-@use './src/assets/theme';
+@use "./src/assets/theme";
 
 // from https://codepen.io/sabanna/pen/ZxQXQv
 .scene {
   --scene-height: 50vw;
   --max-scene-height: 2000px;
-  --book-width: calc(var(--scene-height)/0.947);
-  --max-book-width: calc(var(--max-scene-height)/0.947);
-  --corner-size: calc(var(--scene-height)/10.8);
-  --max-corner-size: calc(var(--max-scene-height)/10.8);
-  --corner-fold-size: calc(var(--scene-height)/15.429);
-  --max-corner-fold-size: calc(var(--max-scene-height)/15.429);
+  --book-width: calc(var(--scene-height) / 0.947);
+  --max-book-width: calc(var(--max-scene-height) / 0.947);
+  --corner-size: calc(var(--scene-height) / 10.8);
+  --max-corner-size: calc(var(--max-scene-height) / 10.8);
+  --corner-fold-size: calc(var(--scene-height) / 15.429);
+  --max-corner-fold-size: calc(var(--max-scene-height) / 15.429);
 
   display: flex;
   width: 100%;
@@ -101,25 +101,30 @@ export default {
   justify-content: center;
   perspective: 4000px;
   perspective-origin: 50% 50%;
-  transform: translate3d(0px, 5%, -264px) rotateX(27deg) rotateY(0deg) rotateZ(-10deg);
-  transition: -webkit-transform 2000ms cubic-bezier(.165, .84, .44, 1);
-  transition: transform 2000ms cubic-bezier(.165, .84, .44, 1), -webkit-transform 2000ms cubic-bezier(.165, .84, .44, 1);
+  transform: translate3d(0px, 5%, -264px) rotateX(27deg) rotateY(0deg)
+    rotateZ(-10deg);
+  transition: -webkit-transform 2000ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 2000ms cubic-bezier(0.165, 0.84, 0.44, 1),
+    -webkit-transform 2000ms cubic-bezier(0.165, 0.84, 0.44, 1);
   transform-style: preserve-3d;
   color: theme.$color-dark;
   font-size: 1.5rem;
   &:hover {
-    transform: translate3d(0px, 5%, -264px) rotateX(13deg) rotateY(0deg) rotateZ(-3deg);
+    transform: translate3d(0px, 5%, -264px) rotateX(13deg) rotateY(0deg)
+      rotateZ(-3deg);
   }
 }
 
-.book-cover-right, .book-cover-left {
+.book-cover-right,
+.book-cover-left {
   flex: 1;
-  background-color: #2e1800;
+  background-color: lighten(theme.$color-dark-mute, 5);
 }
 .book-cover-left {
   border-top-left-radius: 4%;
   border-bottom-left-radius: 4%;
-  box-shadow: inset 4px -4px 4px 1px #635648, inset 7px -7px 4px 0 #221b14;
+  box-shadow: inset 4px -4px 4px 1px lighten(theme.$color-dark-mute, 20),
+    inset 7px -7px 4px 0 theme.$color-dark-mute;
   perspective: 4000px;
   transform: translate3d(0px, 0px, -1px);
   transform-style: preserve-3d;
@@ -128,7 +133,8 @@ export default {
 .book-cover-right {
   border-top-right-radius: 4%;
   border-bottom-right-radius: 4%;
-  box-shadow: inset -4px -4px 4px 1px #635648, inset -7px -7px 4px 0 #221b14;
+  box-shadow: inset -4px -4px 4px 1px lighten(theme.$color-dark-mute, 20),
+    inset -7px -7px 4px 0 theme.$color-dark-mute;
 }
 
 .layer1 {
@@ -149,7 +155,7 @@ export default {
   border-top-left-radius: 1%;
   border-bottom-left-radius: 1%;
   background-color: #fff;
-  box-shadow: inset 0 0 26px 2px #d8cccc, -1px 1px 13px 0 rgba(34, 27, 20, .81);
+  box-shadow: inset 0 0 26px 2px #d8cccc, -1px 1px 13px 0 rgba(34, 27, 20, 0.81);
 }
 
 .layer-text {
@@ -208,9 +214,23 @@ export default {
 
 .center {
   width: 3%;
-  background-image: radial-gradient(circle farthest-corner at 56% -8%, #fff 8%, transparent 0), radial-gradient(circle farthest-corner at 50% 108%, #fff 8%, transparent 0), linear-gradient(90deg, #635648, #2e1800 21%, #635648 30%, #2e1800 48%, #635648 68%, #2e1800 79%, #635648);
+  background-image: radial-gradient(
+      circle farthest-corner at 56% -8%,
+      #fff 8%,
+      transparent 0
+    ),
+    radial-gradient(circle farthest-corner at 50% 108%, #fff 8%, transparent 0),
+    linear-gradient(
+      90deg,
+      lighten(theme.$color-dark-mute, 20),
+      lighten(theme.$color-dark-mute, 5) 21%,
+      lighten(theme.$color-dark-mute, 20) 30%,
+      lighten(theme.$color-dark-mute, 5) 48%,
+      lighten(theme.$color-dark-mute, 20) 68%,
+      lighten(theme.$color-dark-mute, 5) 79%,
+      lighten(theme.$color-dark-mute, 20)
+    );
 }
-
 
 .page-visible {
   position: relative;
@@ -221,7 +241,8 @@ export default {
   &.right {
     border-top-right-radius: 1%;
     border-bottom-right-radius: 1%;
-    box-shadow: inset 0 0 7px 4px hsla(0, 13%, 82%, .43), 1px 1px 13px 0 rgba(34, 27, 20, .49);
+    box-shadow: inset 0 0 7px 4px hsla(0, 13%, 82%, 0.43),
+      1px 1px 13px 0 rgba(34, 27, 20, 0.49);
     transform: rotateX(0deg) rotateY(-3deg) rotateZ(0deg);
     transform-origin: 0 50%;
     transition: transform 850ms ease;
@@ -238,10 +259,11 @@ export default {
   &.left {
     border-top-left-radius: 18%;
     border-bottom-left-radius: 1%;
-    box-shadow: inset 0 0 7px 4px hsla(0, 13%, 82%, .43), -1px 1px 13px 0 rgba(34, 27, 20, .49);
+    box-shadow: inset 0 0 7px 4px hsla(0, 13%, 82%, 0.43),
+      -1px 1px 13px 0 rgba(34, 27, 20, 0.49);
     transform: rotateX(0deg) rotateY(17deg) rotateZ(0deg);
     transform-origin: 100% 50%;
-    transition: transform 650ms cubic-bezier(.165, .84, .44, 1);
+    transition: transform 650ms cubic-bezier(0.165, 0.84, 0.44, 1);
     overflow: visible;
     &:hover {
       transform: rotateX(0deg) rotateY(7deg) rotateZ(0deg);
@@ -265,32 +287,44 @@ export default {
   height: var(--corner-fold-size);
   max-width: var(--max-corner-fold-size);
   max-height: var(--max-corner-fold-size);
-  border-right: 1px solid hsla(0, 13%, 82%, .55);
-  border-bottom: 1px solid hsla(0, 13%, 82%, .55);
-  background-image: -webkit-linear-gradient(315deg, transparent 47%, #f0f0f0 48%, #fff 55%, #f6f6f6);
-  background-image: linear-gradient(135deg, transparent 47%, #f0f0f0 48%, #fff 55%, #f6f6f6);
-  box-shadow: 6px 6px 9px -4px hsla(0, 13%, 82%, .53);
+  border-right: 1px solid hsla(0, 13%, 82%, 0.55);
+  border-bottom: 1px solid hsla(0, 13%, 82%, 0.55);
+  background-image: -webkit-linear-gradient(
+    315deg,
+    transparent 47%,
+    #f0f0f0 48%,
+    #fff 55%,
+    #f6f6f6
+  );
+  background-image: linear-gradient(
+    135deg,
+    transparent 47%,
+    #f0f0f0 48%,
+    #fff 55%,
+    #f6f6f6
+  );
+  box-shadow: 6px 6px 9px -4px hsla(0, 13%, 82%, 0.53);
 }
 
 .corner {
   position: absolute;
   left: 0;
-  top: calc(var(--corner-size)/1.54);
+  top: calc(var(--corner-size) / 1.54);
   width: var(--corner-size);
   height: var(--corner-size);
   max-width: var(--max-corner-size);
   max-height: var(--max-corner-size);
   background-image: linear-gradient(135deg, #fff 30%, transparent);
-  box-shadow: inset 13px 0 17px -12px hsla(0, 13%, 82%, .43);
+  box-shadow: inset 13px 0 17px -12px hsla(0, 13%, 82%, 0.43);
 }
 
 .corner2 {
   position: absolute;
-  left: calc(var(--corner-size)/1.54);
+  left: calc(var(--corner-size) / 1.54);
   top: 0;
   width: var(--corner-size);
   height: var(--corner-size);
-  box-shadow: inset 0 13px 17px -12px hsla(0, 13%, 82%, .43);
+  box-shadow: inset 0 13px 17px -12px hsla(0, 13%, 82%, 0.43);
   background: #ffffff;
 }
 
@@ -302,10 +336,10 @@ export default {
   font-family: theme.$font-family-hand;
   word-wrap: break-word;
   @media (max-width: 767px) {
-    margin-top: calc(var(--corner-size)/2);
+    margin-top: calc(var(--corner-size) / 2);
   }
   a {
-    color: theme.$color-secondary;
+    color: theme.$color-dark-mute;
   }
 }
 
@@ -383,7 +417,6 @@ export default {
   border-top-right-radius: 1%;
   border-bottom-right-radius: 1%;
   background-color: #fff;
-  box-shadow: inset 0 0 26px 2px #d8cccc, 1px 1px 13px 0 rgba(34, 27, 20, .81);
+  box-shadow: inset 0 0 26px 2px #d8cccc, 1px 1px 13px 0 rgba(34, 27, 20, 0.81);
 }
-
 </style>
