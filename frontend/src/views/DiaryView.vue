@@ -19,7 +19,7 @@ export default defineComponent({
      (async () => {
       const response = await fetch('/api/diarydata');
        if (!response.ok) {
-         this.errorMessage = "An error has occurred: try to log in again on the start screen:";
+         this.errorMessage = "An error has occurred - try to log in again on the start screen:";
          throw new Error(this.errorMessage);
        } else if (response.status === 204) {
          this.errorMessage = "You didn't listen to music yesterday or today 😞 Listen to a few songs and then come back again.";

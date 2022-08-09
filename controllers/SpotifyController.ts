@@ -100,8 +100,9 @@ module.exports.getDiaryData = async function (req, res) {
 
         if (recentlyPlayedItems.length === 0) {
             res.status(204);
-            res.end();
+            return res.end();
         }
+
         let dayItems = recentlyPlayedItems.filter((item) => new Date(item.played_at).getTime() < yesterdayEnd.getTime());
         if (dayItems.length === 0) {
             dayItems = recentlyPlayedItems;
@@ -109,34 +110,39 @@ module.exports.getDiaryData = async function (req, res) {
         }
         const songIds = dayItems.map(({track})=>track.id);
         const count = dayItems.length;
+
         const audioFeatures: AudioFeatures[] = (await spotifyApi.getAudioFeaturesForTracks(songIds)).body.audio_features;
+        if (audioFeatures.length > 0 && audioFeatures[0] !== null) {
+            const data = audioFeatures.map(({type, id, uri, analysis_url, track_href, ...keep}) => keep);
+            const means = Object.keys(data[0]).map((key) => ({
+                [key]: getMean(data.map((item)=>item[key]))
+            }))
+            const standardDeviations = Object.keys(data[0]).map((key) => ({
+                [key]: getStandardDeviation(data.map((item)=>item[key]))
+            }));
+            const mean = Object.assign({}, ...means);
+            const standardDeviation = Object.assign({}, ...standardDeviations);
 
-        const data = audioFeatures.map(({type, id, uri, analysis_url, track_href, ...keep}) => keep);
-        const means = Object.keys(data[0]).map((key) => ({
-            [key]: getMean(data.map((item)=>item[key]))
-        }))
-        const standardDeviations = Object.keys(data[0]).map((key) => ({
-            [key]: getStandardDeviation(data.map((item)=>item[key]))
-        }));
-        const mean = Object.assign({}, ...means);
-        const standardDeviation = Object.assign({}, ...standardDeviations);
+            const randomSongName = getRandomElement<RecentlyPlayedItem>(dayItems).track.name;
 
-        const randomSongName = getRandomElement<RecentlyPlayedItem>(dayItems).track.name;
-
-        res.status(200).json({
-            me: {
-                name: me.display_name,
-                image: me.images[0]?.url
-            },
-            mean,
-            standardDeviation,
-            count,
-            date,
-            randomSongName
-        });
-
+            res.status(200).json({
+                me: {
+                    name: me.display_name,
+                    image: me.images[0]?.url
+                },
+                mean,
+                standardDeviation,
+                count,
+                date,
+                randomSongName
+            });
+            return res.end();
+        } else {
+            throw new Error('Audio Features request failed.');
+        }
     } catch (err) {
         console.log(err);
         res.status(400).send(err);
+        return res.end();
     }
 };
