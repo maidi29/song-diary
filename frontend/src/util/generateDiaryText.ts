@@ -18,7 +18,7 @@ const negativeEvents = [
 ];
 
 export const generateDiaryText = (mean: TrackFeatures, standardDeviation: TrackFeatures) =>
-    `Today was a ${mean.valence > 0.8 || mean.valence < 0.2 ? 'extremely' : 'rather'} 
+    `Today was a${mean.valence > 0.8 || mean.valence < 0.2 ? 'n extremely' : ' rather'} 
     ${mean.valence > 0.5 ? 'positive' : 'negative'} day, 
     ${standardDeviation.valence > 0.3 ? 'my mood changed constantly.' : 'my mood was quite balanced.'}
     ${mean.valence > 0.5 ? getRandomElement<string>(positiveEvents): getRandomElement<string>(negativeEvents)}
