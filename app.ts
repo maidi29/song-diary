@@ -11,7 +11,6 @@ const app = express();
 const buildPath = path.join(__dirname, 'frontend/', 'dist');
 
 app.set('views', path.join(buildPath, 'views'));
-app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.use(logger('dev'));
