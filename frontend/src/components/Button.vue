@@ -24,6 +24,9 @@ export default {
   font-weight: bold;
   font-family: theme.$font-family-main;
   border: none;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 
   &:not([disabled]) {
     cursor: pointer;

@@ -57,7 +57,7 @@ export default defineComponent({
     <template v-if="diaryData">
       <Diary :data="diaryData" />
       <details>
-        <summary>Data</summary>
+        <summary><div class="summary-title">Based on data from your listening on <img src="../assets/spotify-logo-text.svg" height="24"/></div></summary>
         <Chart :data="chartData" />
       </details>
     </template>
@@ -90,6 +90,14 @@ summary {
   padding: 1rem;
   text-align: left;
   cursor: pointer;
+  .summary-title {
+    display: inline;
+    margin-left: 1rem;
+    img {
+      vertical-align: bottom;
+      margin-left: 0.5rem;
+    }
+  }
 }
 details {
   background: darken(theme.$color-background,15);

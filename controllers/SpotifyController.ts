@@ -60,7 +60,7 @@ module.exports.spotifyLogin = function (res) {
         new URLSearchParams({
             response_type: 'code',
             client_id: clientId,
-            scope: 'user-read-email user-read-recently-played',
+            scope: 'user-read-recently-played',
             redirect_uri: redirectUri,
             state: state
         }).toString());
@@ -85,6 +85,7 @@ module.exports.getDiaryData = async function (req, res) {
         spotifyApi.setAccessToken(req.session.spotifyAccount["access_token"]);
         spotifyApi.setRefreshToken(req.session.spotifyAccount["refresh_token"]);
         const me = (await spotifyApi.getMe()).body;
+        console.log(me);
 
         const yesterdayBegin = new Date();
         const yesterdayEnd = new Date();

@@ -65,18 +65,16 @@ export default {
 // from https://codepen.io/sabanna/pen/ZxQXQv
 .scene {
   --scene-height: 50vw;
-  --max-scene-height: 2000px;
+  @media (min-width: 1300px) {
+    --scene-height: 800px;
+  }
   --book-width: calc(var(--scene-height) / 0.947);
-  --max-book-width: calc(var(--max-scene-height) / 0.947);
   --corner-size: calc(var(--scene-height) / 10.8);
-  --max-corner-size: calc(var(--max-scene-height) / 10.8);
   --corner-fold-size: calc(var(--scene-height) / 15.429);
-  --max-corner-fold-size: calc(var(--max-scene-height) / 15.429);
 
   display: flex;
   width: 100%;
   height: var(--scene-height);
-  max-height: var(--max-scene-height);
   justify-content: center;
   align-items: stretch;
   perspective: 4000px;
@@ -93,7 +91,6 @@ export default {
   position: relative;
   display: flex;
   width: var(--book-width);
-  max-height: var(--max-book-width);
   margin-top: 3rem;
   margin-bottom: 3rem;
   padding-right: 1%;
@@ -285,8 +282,6 @@ export default {
   top: 0;
   width: var(--corner-fold-size);
   height: var(--corner-fold-size);
-  max-width: var(--max-corner-fold-size);
-  max-height: var(--max-corner-fold-size);
   border-right: 1px solid hsla(0, 13%, 82%, 0.55);
   border-bottom: 1px solid hsla(0, 13%, 82%, 0.55);
   background-image: -webkit-linear-gradient(
@@ -312,8 +307,6 @@ export default {
   top: calc(var(--corner-size) / 1.54);
   width: var(--corner-size);
   height: var(--corner-size);
-  max-width: var(--max-corner-size);
-  max-height: var(--max-corner-size);
   background-image: linear-gradient(135deg, #fff 30%, transparent);
   box-shadow: inset 13px 0 17px -12px hsla(0, 13%, 82%, 0.43);
 }

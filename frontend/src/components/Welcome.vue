@@ -16,11 +16,11 @@ export default defineComponent({
 <template>
   <h1>The Music Diary</h1>
   <h3>
-    The Music Diary analyzes the songs you listened to yesterday and generates a
+    The Music Diary analyzes the songs you listened to yesterday on Spotify and generates a
     diary entry from them, reflecting your mood and activities.
   </h3>
   <h3>Learn how much your listening habits reveal about your day.</h3>
-  <Button v-on:click="doLogin">Start</Button>
+  <Button v-on:click="doLogin"><img src="../assets/spotify-logo.svg" height="20"/>Start</Button>
   <lottie-animation
     class="animation"
     path="lotties/music.json"
