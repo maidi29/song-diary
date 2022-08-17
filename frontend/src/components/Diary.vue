@@ -66,7 +66,7 @@ export default defineComponent({
       <div class="text-wrapper">
         <h3>Dear Diary,</h3>
         <p>{{ generateText(data.mean, data.standardDeviation) }}</p>
-        <p>Today's motto is: {{ data.randomSongName }}.</p>
+        <p>Today's motto is: <strong>{{ data.randomSongName }}</strong>.</p>
         <h3>Yours {{ data.me.name.split(" ")[0] }}</h3>
       </div>
     </template>

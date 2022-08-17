@@ -9,6 +9,8 @@ const positiveEvents = [
   "A person close to me gave me a very good feeling.",
   "I have received recognition and respect from my peers for my accomplishments.",
   "I had a good conversation.",
+  "I have found again something I thought lost.",
+  "Long efforts on my part are finally tipped for success."
 ];
 const negativeEvents = [
   "Work and private life were in tension on this day.",
@@ -16,6 +18,8 @@ const negativeEvents = [
   "I have had a mishap that I now have to deal with.",
   "I had a bad conversation today.",
   "It seems to me that no one sees my efforts and endeavors.",
+  "I had a very difficult decision to make.",
+  "I forgot one important thing and now I feel bad."
 ];
 
 export const generateDiaryText = (
@@ -39,10 +43,10 @@ export const generateDiaryText = (
     ${
       mean.energy > 0.7
         ? "Additionally, I had a lot of energy and was very active" +
-          (standardDeviation.energy > 0.3 ? " but also tired sometimes." : ".")
+          (standardDeviation.energy > 0.25 ? " but also tired sometimes." : ".")
         : mean.energy < 0.3
         ? "Additionally, I did not have much energy, I was limp and unmotivated" +
-          (standardDeviation.energy > 0.3
+          (standardDeviation.energy > 0.25
             ? " but also energetic sometimes."
             : ".")
         : ""
@@ -57,7 +61,7 @@ export const generateDiaryText = (
     ${
       mean.danceability > 0.7
         ? "Also, I longed to dance and party" +
-          (standardDeviation.danceability > 0.3
+          (standardDeviation.danceability > 0.25
             ? " from time to time."
             : " all day long.")
         : mean.danceability < 0.3
@@ -65,16 +69,18 @@ export const generateDiaryText = (
         : ""
     }
     ${
-      mean.tempo > 100
+      mean.tempo > 140
         ? "The day flew by."
-        : mean.tempo < 80
+        : mean.tempo < 100
         ? "I was very bored and slow like a sloth."
         : ""
     }
     ${
-      mean.acousticness > 0.5
+      mean.acousticness > 0.7
         ? "Moreover, I was in the here and now with a clear mind."
-        : "Moreover, everything felt unreal like a dream."
+        : mean.acousticness < 0.3
+        ? "Moreover, everything felt unreal like a dream."
+        : ""
     }
     ${
       mean.instrumentalness > 0.5
@@ -82,7 +88,9 @@ export const generateDiaryText = (
         : "I had few thoughts or worries."
     }
     ${
-      mean.duration_ms > 210000
-        ? "Furthermore, I had a lot of stamina and got things done."
-        : "Furthermore, my attention span was rather limited and I was easily distracted."
+      mean.duration_ms > 300000
+        ? "Furthermore, I could concentrate on one thing for a long time and was not easily distracted."
+        :  mean.duration_ms < 180000
+        ? "Furthermore, my attention span was rather limited and I was easily distracted."
+        : ""
     }`;
