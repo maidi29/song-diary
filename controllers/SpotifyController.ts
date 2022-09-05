@@ -85,7 +85,6 @@ module.exports.getDiaryData = async function (req, res) {
         spotifyApi.setAccessToken(req.session.spotifyAccount["access_token"]);
         spotifyApi.setRefreshToken(req.session.spotifyAccount["refresh_token"]);
         const me = (await spotifyApi.getMe()).body;
-        console.log(me);
 
         const yesterdayBegin = new Date();
         const yesterdayEnd = new Date();
