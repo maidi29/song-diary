@@ -3,6 +3,7 @@
     "noImplicitAny": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "./build"
+    "outDir": "./build",
+    "types": ["node"]
   }
 }

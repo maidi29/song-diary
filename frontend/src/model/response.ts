@@ -1,3 +1,5 @@
+import type { MappedSongData } from "../../../shared/model";
+
 export interface TrackFeatures {
   danceability: number;
   energy: number;
@@ -14,7 +16,7 @@ export interface TrackFeatures {
   time_signature: number;
 }
 
-export interface DiaryData {
+export interface Response {
   me: {
     name: string;
     image?: string;
@@ -24,4 +26,9 @@ export interface DiaryData {
   count: number;
   date: string;
   randomSongName: string;
+  diaryEntry: string;
+  imageUrl: string;
+  moodData: MappedSongData[];
+  moodMean: { valence: number; arousal: number };
+  moodStandardDeviation: { valence: number; arousal: number };
 }

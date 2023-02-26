@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { DiaryData } from "@/model/diaryData";
+import type { Response } from "@/model/response";
 import type { PropType } from "vue";
 import Book from "@/components/Book.vue";
 import { defineComponent } from "vue";
@@ -7,33 +7,37 @@ import { generateDiaryText } from "@/util/generateDiaryText";
 
 declare interface BaseComponentData {
   randomImage?: string;
+  entryParagraphs: string[];
 }
 
 export default defineComponent({
   name: "Diary",
   components: { Book },
   props: {
-    data: {
-      type: Object as PropType<DiaryData>,
+    entry: {
+      type: Object as PropType<string>,
       required: true,
+    },
+    imageUrl: {
+      type: Object as PropType<string>,
+      required: true,
+    },
+    date: {
+      type: Object as PropType<string>,
+      required: true
     },
   },
   data(): BaseComponentData {
     return {
       randomImage: undefined,
+      entryParagraphs: []
     };
   },
   mounted() {
-    (async () => {
-      const response = await (
-        await fetch(
-          `https://api.unsplash.com/photos/random?query=${
-            this.data.randomSongName
-          }&client_id=${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`
-        )
-      ).json();
-      this.randomImage = response.urls.thumb;
-    })();
+      this.randomImage = this.imageUrl;
+      const pattern = /\n/;
+      this.entryParagraphs = this.entry.split(pattern);
+      console.log(JSON.stringify(this.entryParagraphs));
   },
   methods: {
     generateText: generateDiaryText,
@@ -47,7 +51,7 @@ export default defineComponent({
       <div class="page-wrapper">
         <div class="date">
           {{
-            new Date(data.date).toLocaleDateString("en-US", {
+            new Date(date).toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
               month: "long",
@@ -64,10 +68,9 @@ export default defineComponent({
     </template>
     <template v-slot:page-right>
       <div class="text-wrapper">
-        <h3>Dear Diary,</h3>
-        <p>{{ generateText(data.mean, data.standardDeviation) }}</p>
-        <p>Today's motto is: <strong>{{ data.randomSongName }}</strong>.</p>
-        <h3>Yours {{ data.me.name.split(" ")[0] }}</h3>
+        <p v-for="paragraph in entryParagraphs">
+          {{ paragraph }}
+        </p>
       </div>
     </template>
   </Book>

@@ -16,7 +16,8 @@
     "express": "~4.15.5",
     "morgan": "~1.9.0",
     "spotify-web-api-node": "^2.5.0",
-    "ts-node": "^10.7.0"
+    "ts-node": "^10.7.0",
+    "openai": "^3.1.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

@@ -1,4 +1,4 @@
-import type { TrackFeatures } from "@/model/diaryData";
+import type { TrackFeatures } from "@/model/response";
 
 const getRandomElement = <T>(array: T[]): T =>
   array[Math.floor(Math.random() * array.length)];
