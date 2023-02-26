@@ -37,7 +37,6 @@ export default defineComponent({
       this.randomImage = this.imageUrl;
       const pattern = /\n/;
       this.entryParagraphs = this.entry.split(pattern);
-      console.log(JSON.stringify(this.entryParagraphs));
   },
   methods: {
     generateText: generateDiaryText,

@@ -192,12 +192,12 @@ module.exports.getDiaryData = async function (req, res) {
         )[0];
 
       // Generate Image and diary entry
-      /*const { diaryEntry, imageUrl } = await openAiController.generate(
+      const { diaryEntry, imageUrl } = await openAiController.generate(
         randomSongName,
         moods,
         me.display_name,
         res
-      );*/
+      );
 
       res.status(200).json({
         me: {
@@ -212,8 +212,8 @@ module.exports.getDiaryData = async function (req, res) {
         count,
         date,
         randomSongName,
-        diaryEntry: "",
-        imageUrl: "",
+        diaryEntry,
+        imageUrl,
       });
       return res.end();
     } else {

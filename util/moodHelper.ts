@@ -116,7 +116,7 @@ export const addSDMoods = (
   moodStandardDeviation: { valence: number; arousal: number }
 ): string[] => {
   const moods = [];
-  if (moodStandardDeviation.arousal > 0.2) {
+  if (moodStandardDeviation.arousal > 0.25) {
     moods.push(
       getRandomElement(
         moodMean.arousal >= 0
@@ -133,7 +133,7 @@ export const addSDMoods = (
       )
     );
   }
-  if (moodStandardDeviation.valence > 0.2) {
+  if (moodStandardDeviation.valence > 0.25) {
     moods.push(
       getRandomElement(
         moodMean.valence >= 0

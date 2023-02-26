@@ -77,8 +77,6 @@ export default defineComponent({
         :image-url="response.imageUrl"
         :date="response.date"
       />
-      <ScatterChart :data="{mappedSongData: scatterData, mean: moodMean, standardDeviation: moodStandardDeviation}"/>
-
       <details open>
         <summary>
           <h3 class="summary-title">
@@ -129,6 +127,7 @@ export default defineComponent({
   text-align: center;
   align-items: center;
   justify-content: center;
+  min-width: 5
 }
 summary {
   width: 100%;
@@ -164,5 +163,6 @@ details {
   justify-content: center;
   flex-direction: column;
   padding: 1rem;
+  gap: 1rem;
 }
 </style>

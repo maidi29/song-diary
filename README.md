@@ -5,7 +5,7 @@
 The Music Diary analyzes the songs you listened to yesterday and generates a diary entry from them, reflecting your mood and activities.
 Learn how much your listening habits reveal about your day.
 
-![screenshot](frontend/public/images/tmd.png)
+![screenshot](frontend/public/images/music-diary.png)
 
 ## Setup
 

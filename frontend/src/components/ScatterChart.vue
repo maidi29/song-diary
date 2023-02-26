@@ -6,15 +6,16 @@ import VChart from "vue-echarts";
 import {defineComponent, ref} from "vue";
 import type {PropType} from "vue";
 import type {MappedSongData} from "../../../shared/model";
-import type * as echarts from "echarts";
+// stay because of formatter function
+import * as echarts from "echarts";
 
 declare interface ScatterChartProps {
   mappedSongData: MappedSongData[];
-  mean: {
+  mean?: {
     valence: number,
     arousal: number
   };
-  standardDeviation: {
+  standardDeviation?: {
     valence: number,
     arousal: number
   };
@@ -99,42 +100,40 @@ export default defineComponent({
         }
       },
       tooltip: {
-        formatter: (data: any) => {
-         /* const playedCount =
-              data.value[3] === "Mean" ?
+        textStyle: {
+          color: "#3D348B",
+          fontFamily: "Montserrat, sans-serif",
+        },
+        formatter: function (data: { value: any[] }) {
+          const standardDeviation = props.data.standardDeviation ?
               `<div>Standard Deviation:
-                   Valence: ${(Math.round(props.data.standardDeviation.valence * 100) / 100).toFixed(2)},
-                   Arousal: ${(Math.round(props.data.standardDeviation.arousal * 100) / 100).toFixed(2)}
-                 </div>`
-              :
+                    Valence: ${(Math.round(props.data.standardDeviation.valence * 100) / 100).toFixed(2)},
+                    Arousal: ${(Math.round(props.data.standardDeviation.arousal * 100) / 100).toFixed(2)}</div>` : '';
+          const playedCount = data.value[3] === "Mean" ?
+              standardDeviation :
               `<div>Played ${data.value[2]} time${data.value[2] == 1 ? '' : 's'}</div>`;
           return `<div><strong>${data.value[3]}</strong></div>
               <div>${data.value[4]}</div>
               <div>Valence: ${(Math.round(data.value[0] * 100) / 100).toFixed(2)},
               Arousal: ${(Math.round(data.value[1] * 100) / 100).toFixed(2)}</div>
               ${playedCount}
-          `;*/
-          return "Toolip" + data.value
+          `;
         }
       },
       series: [{
         name: "Songs",
-        data: props.data.mappedSongData.map((item) => [item.valence, item.arousal, item.count, item.name, item.artists.join()]),
+        data: props.data.mappedSongData.map((item) => [item.valence, item.arousal, item.count, item.name, item.artists.join(', ')]),
         type: "scatter",
-        tooltip: {
-          formatter: '{b}: {@score}'
-        },
-        symbolSize: (data) => {
+        symbolSize: (data: any) => {
           return data[2] * 5;
         },
-        color: '#F35B04',
-        silent: false
+        color: '#F35B04'
       }, {
         name: 'Standard Deviation',
         color: '#F7B801',
-        data: [[props.data.mean.valence, props.data.mean.arousal, 5, "Standard Deviation", "Standard Deviation"]],
+        data: [[props.data.mean?.valence, props.data.mean?.arousal, 5, "Standard Deviation", "Standard Deviation"]],
         type: 'scatter',
-        symbolSize: [props.data.standardDeviation.valence * 100, props.data.standardDeviation.arousal * 100],
+        symbolSize: [(props.data.standardDeviation?.valence || 0) * 100, (props.data.standardDeviation?.arousal || 0) * 100],
         silent: true,
         itemStyle: {
           opacity: 0.3,
@@ -143,13 +142,11 @@ export default defineComponent({
         {
           name: 'Mean',
           color: '#F7B801',
-          data: [[props.data.mean.valence, props.data.mean.arousal, 5, "Mean", "Mean of all songs"]],
+          data: [[props.data.mean?.valence, props.data.mean?.arousal, 5, "Mean", "Mean of all songs"]],
           type: 'scatter',
-          silent: false
         },
       ],
-    } as echarts.EChartsOption);
-    console.log(option);
+    });
     return {option};
   },
 });
