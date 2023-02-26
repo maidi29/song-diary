@@ -21,12 +21,14 @@ module.exports.generate = async (
   }
 
   try {
+    console.log(moods);
     let diaryEntry = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generateDiaryEntryPrompt(moods),
       temperature: 1,
       max_tokens: 2048,
     });
+    console.log(JSON.stringify(diaryEntry));
     diaryEntry = diaryEntry.data.choices[0].text.replace(
       /xxx/gi,
       `${name.split(" ")[0]}`
@@ -37,6 +39,7 @@ module.exports.generate = async (
     );
 
     const imageUrl = await this.generateImage(randomSongName);
+    console.log(imageUrl);
     return {
       imageUrl,
       diaryEntry,
@@ -71,6 +74,7 @@ module.exports.generateImage = async (randomSongName: string) => {
         `https://api.unsplash.com/photos/random?query=${randomSongName}&client_id=${process.env.UNSPLASH_ACCESS_KEY}`
       )
     ).json();
+    console.log(response);
     imageUrl = response.urls.thumb;
   } catch (error) {}
   return imageUrl;
