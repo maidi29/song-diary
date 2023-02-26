@@ -127,7 +127,7 @@ export default defineComponent({
   text-align: center;
   align-items: center;
   justify-content: center;
-  min-width: 5
+  flex: 1;
 }
 summary {
   width: 100%;
