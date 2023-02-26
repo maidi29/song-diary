@@ -21,14 +21,12 @@ module.exports.generate = async (
   }
 
   try {
-    console.log(moods);
     let diaryEntry = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generateDiaryEntryPrompt(moods),
       temperature: 1,
       max_tokens: 2048,
     });
-    console.log(JSON.stringify(diaryEntry));
     diaryEntry = diaryEntry.data.choices[0].text.replace(
       /xxx/gi,
       `${name.split(" ")[0]}`
@@ -38,8 +36,7 @@ module.exports.generate = async (
       `\nMotto of the day: ${randomSongName}. \nSincerely,`
     );
 
-    const imageUrl = await this.generateImage(randomSongName);
-    console.log(imageUrl);
+    const imageUrl = await generateImage(randomSongName);
     return {
       imageUrl,
       diaryEntry,
@@ -59,7 +56,7 @@ module.exports.generate = async (
   }
 };
 
-module.exports.generateImage = async (randomSongName: string) => {
+const generateImage = async (randomSongName: string) => {
   let imageUrl = "";
   try {
     /* const response = await openai.createImage({
@@ -74,13 +71,12 @@ module.exports.generateImage = async (randomSongName: string) => {
         `https://api.unsplash.com/photos/random?query=${randomSongName}&client_id=${process.env.UNSPLASH_ACCESS_KEY}`
       )
     ).json();
-    console.log(response);
     imageUrl = response.urls.thumb;
   } catch (error) {}
   return imageUrl;
 };
 
-function generateDiaryEntryPrompt(moods) {
+const generateDiaryEntryPrompt = (moods: string) => {
   return `
   Generate a diary entry from the following moods and assume reasons for these emotions. Start with 
   "Dear Diary," and end with "Sincerely, xxx".
@@ -96,7 +92,7 @@ function generateDiaryEntryPrompt(moods) {
 
   Moods: ${moods} 
   Diary Entry:`;
-}
+};
 
 /*
 Moods: Uplifting, Energetic, Motivated, Vibrant
