@@ -76,6 +76,7 @@ export default defineComponent({
         :entry="response.diaryEntry"
         :image-url="response.imageUrl"
         :date="response.date"
+        :random-song-name="response.randomSongName"
       />
       <details open>
         <summary>

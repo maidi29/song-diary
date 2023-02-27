@@ -71,8 +71,10 @@ const generateImage = async (randomSongName: string) => {
         `https://api.unsplash.com/photos/random?query=${randomSongName}&client_id=${process.env.UNSPLASH_ACCESS_KEY}`
       )
     ).json();
-    imageUrl = response.urls.thumb;
-  } catch (error) {}
+    imageUrl = (response as any).urls.thumb;
+  } catch (error) {
+    console.log(error);
+  }
   return imageUrl;
 };
 

@@ -8,6 +8,7 @@ import { generateDiaryText } from "@/util/generateDiaryText";
 declare interface BaseComponentData {
   randomImage?: string;
   entryParagraphs: string[];
+  randomSongName: string,
 }
 
 export default defineComponent({
@@ -30,11 +31,24 @@ export default defineComponent({
   data(): BaseComponentData {
     return {
       randomImage: undefined,
+      randomSongName: "",
       entryParagraphs: []
     };
   },
   mounted() {
       this.randomImage = this.imageUrl;
+      if(this.randomImage === "") {
+        (async () => {
+          const response = await (
+              await fetch(
+                  `https://api.unsplash.com/photos/random?query=${
+                      this.randomSongName
+                  }&client_id=${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`
+              )
+          ).json();
+          this.randomImage = response.urls.thumb;
+        })();
+      }
       const pattern = /\n/;
       this.entryParagraphs = this.entry.split(pattern);
   },
