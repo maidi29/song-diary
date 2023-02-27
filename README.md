@@ -2,8 +2,8 @@
 
 ### Try it here: [https://the-music-diary.herokuapp.com/](https://the-music-diary.herokuapp.com/)
 
-The Music Diary analyzes the songs you listened to yesterday and generates a diary entry from them, reflecting your mood and activities.
-Learn how much your listening habits reveal about your day.
+The Music Diary analyzes the songs you listened to yesterday and generates a diary entry from them using OpenAI, reflecting your mood and activities.
+You can also analyze the songs you listened to today in interactive graphs and learn more about yourself, your listening habits and your feelings.
 
 ![screenshot](frontend/public/images/music-diary.png)
 
