@@ -25,9 +25,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <h1>The Music Diary</h1>
+  <h1>Song Diary</h1>
   <h3>
-    The Music Diary analyzes the songs you listened to yesterday on Spotify and generates a
+    The Song Diary analyzes the songs you listened to yesterday on Spotify and generates a
     diary entry from them using Artificial Intelligence that reflects your mood and activities.
   </h3>
   <h3>You can also analyze the songs you listened to today in interactive graphs and learn more about

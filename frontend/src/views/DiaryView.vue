@@ -6,6 +6,7 @@ import Chart from "@/components/Chart.vue";
 import ScatterChart from "@/components/ScatterChart.vue";
 import type {MappedSongData} from "../../../shared/model";
 import writing from '@/assets/writing.json';
+import Button from "@/components/Button.vue";
 
 declare interface BaseComponentData {
   response?: Response;
@@ -20,7 +21,7 @@ declare interface BaseComponentData {
   writingAnimation: any
 }
 export default defineComponent({
-  components: { ScatterChart, Chart, Diary },
+  components: {Button, ScatterChart, Chart, Diary },
   data(): BaseComponentData {
     return {
       response: undefined,
@@ -40,7 +41,7 @@ export default defineComponent({
       const response = await fetch("/api/diarydata");
       if (!response.ok) {
         this.errorMessage =
-          "An error has occurred - try to log in again on the start screen:";
+          "An error has occurred! 😞";
         throw new Error(this.errorMessage);
       } else if (response.status === 204) {
         this.errorMessage =
@@ -65,6 +66,11 @@ export default defineComponent({
         this.moodStandardDeviation = this.response.moodStandardDeviation;
       }
     })();
+  },
+  methods: {
+    async doLogin() {
+      window.location.href = "/api/login";
+    },
   },
 });
 </script>
@@ -97,7 +103,10 @@ export default defineComponent({
         </div>
       </details>
     </template>
-    <div v-else-if="errorMessage">{{ errorMessage }}</div>
+    <div v-else-if="errorMessage">
+      <div>{{ errorMessage }}</div>
+      <div><Button v-on:click="doLogin">Try again</Button></div>
+    </div>
     <div v-else-if="!response" class="loading">
       <lottie-animation
           ref="anim"

@@ -1,5 +1,5 @@
 {
-  "name": "music-diary-frontend",
+  "name": "song-diary-frontend",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

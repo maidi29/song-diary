@@ -1,11 +1,11 @@
-# Music Diary 🎵📖
+# Song Diary 🎵📖
 
-### Try it here: [https://the-music-diary.herokuapp.com/](https://the-music-diary.herokuapp.com/)
+### Try it here: [https://www.song-diary.com](https://www.song-diary.com)
 
-The Music Diary analyzes the songs you listened to yesterday and generates a diary entry from them using OpenAI, reflecting your mood and activities.
+The Song Diary analyzes the songs you listened to yesterday and generates a diary entry from them using OpenAI, reflecting your mood and activities.
 You can also analyze the songs you listened to today in interactive graphs and learn more about yourself, your listening habits and your feelings.
 
-![screenshot](frontend/public/images/music-diary.png)
+![screenshot](frontend/public/images/song-diary.png)
 
 ## Setup
 
