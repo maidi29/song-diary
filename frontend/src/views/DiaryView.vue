@@ -103,7 +103,7 @@ export default defineComponent({
         </div>
       </details>
     </template>
-    <div v-else-if="errorMessage">
+    <div v-else-if="errorMessage" class="error-message">
       <div>{{ errorMessage }}</div>
       <div><Button v-on:click="doLogin">Try again</Button></div>
     </div>
@@ -174,5 +174,12 @@ details {
   flex-direction: column;
   padding: 1rem;
   gap: 1rem;
+}
+
+.error-message {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
 }
 </style>
