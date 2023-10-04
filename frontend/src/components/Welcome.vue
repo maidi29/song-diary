@@ -30,7 +30,7 @@ export default defineComponent({
     The Song Diary analyzes the songs you listened to yesterday on Spotify and generates a
     diary entry from them using Artificial Intelligence that reflects your mood and activities.
   </h3>
-  <h3>You can also analyze the songs you listened to today in interactive graphs and learn more about
+  <h3>You can also analyze the songs you listened to in interactive graphs and learn more about
     yourself, your listening habits and your feelings.</h3>
   <Button v-on:click="doLogin"><img src="../assets/spotify-logo.svg" height="20"/>Start</Button>
   <lottie-animation
