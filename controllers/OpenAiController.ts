@@ -1,9 +1,8 @@
-const { Configuration, OpenAIApi } = require("openai");
+import OpenAI from "openai";
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // This is also the default, can be omitted
 });
-const openai = new OpenAIApi(configuration);
 
 module.exports.generate = async (
   randomSongName: string,
@@ -11,7 +10,7 @@ module.exports.generate = async (
   name: string,
   res
 ): Promise<{ diaryEntry: string; imageUrl: string }> => {
-  if (!configuration.apiKey) {
+  if (!openai.apiKey) {
     res.status(500).json({
       error: {
         message: "OpenAI API key not configured.",
@@ -21,13 +20,13 @@ module.exports.generate = async (
   }
 
   try {
-    let diaryEntry = await openai.createCompletion({
-      model: "text-davinci-003",
+    const completion = await openai.completions.create({
+      model: "gpt-3.5-turbo-instruct",
       prompt: generateDiaryEntryPrompt(moods),
       temperature: 1,
       max_tokens: 2048,
     });
-    diaryEntry = diaryEntry.data.choices[0].text.replace(
+    let diaryEntry = completion.choices[0].text.replace(
       /xxx/gi,
       `${name.split(" ")[0]}`
     );

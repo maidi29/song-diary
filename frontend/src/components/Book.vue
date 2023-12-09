@@ -327,6 +327,7 @@ export default {
   width: 80%;
   margin: 1.5rem auto;
   font-family: theme.$font-family-hand;
+  font-size: 1.75rem;
   word-wrap: break-word;
   @media (max-width: 767px) {
     margin-top: calc(var(--corner-size) / 2);
